@@ -4,7 +4,6 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import { config } from 'dotenv'
-import { join } from 'path'
 import cors from 'cors'
 
 config()
