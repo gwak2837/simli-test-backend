@@ -41,6 +41,8 @@ MARIADB_HOST=
 MARIADB_PORT=
 MARIADB_USER=
 MARIADB_PASSWORD=
+
+JWT_SECRET_KEY=
 ```
 
 루트 폴더에 `.env` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
