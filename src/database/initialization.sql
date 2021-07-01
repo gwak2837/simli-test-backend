@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS simli_test;
+
+CREATE DATABASE simli_test;
+
+USE simli_test;
+
+CREATE TABLE user (
+  id VARCHAR(50) UNIQUE NOT NULL PRIMARY KEY,
+  email VARCHAR(50) NOT NULL,
+  password_hash VARCHAR(50) NOT NULL,
+  name VARCHAR(50) NOT NULL
+);
