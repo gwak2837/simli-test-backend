@@ -36,7 +36,7 @@ export async function registerUser(email, passwordHash, name) {
   )
 
   const rows = await conn.query(
-    `SELECT id FROM user WHERE email='${email}' and passwordHash='${passwordHash}' and name='${name}'`
+    `SELECT id FROM user WHERE email='${email}' and password_hash='${passwordHash}' and name='${name}'`
   )
 
   if (conn) conn.end()
