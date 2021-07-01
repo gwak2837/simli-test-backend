@@ -7,15 +7,17 @@ const { genSalt, hash } = bcrypt
 const router = Router()
 
 router.post('/', async (req, res) => {
-  const { email, password, name } = req.body
+  const { email, password, name, phoneNumber, birth, address } = req.body
+
+  console.log(req.body)
 
   const passwordHash = await hash(password, await genSalt())
 
   const rows = await registerUser(email, passwordHash, name)
 
-  const jwt = generateJWT({ userId: rows[0].id })
+  const jwt = await generateJWT({ userId: rows[0].id })
 
-  res.send(jwt)
+  res.send({ jwt })
 })
 
 export default router
