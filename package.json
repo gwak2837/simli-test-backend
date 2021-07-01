@@ -12,8 +12,8 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/app.js --trace-warnings",
-    "start": "NODE_ENV=production node src/app.js",
+    "dev": "nodemon src/app.js --trace-warnings",
+    "start": "node src/app.js",
     "format": "prettier . --write --ignore-path .gitignore",
     "lint": "eslint . --fix --ignore-path .gitignore",
     "test": "echo \"Error: no test specified\" && exit 1"
