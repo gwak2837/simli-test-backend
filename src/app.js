@@ -12,7 +12,7 @@ import loginRouter from './routes/login.js'
 import signupRouter from './routes/signup.js'
 
 const app = express()
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 4000)
 
 app.use(morgan('dev'))
 // app.use('/', static(join(__dirname, 'public')))

@@ -8,7 +8,7 @@
 - Git 2.31
 - Node.js LTS
 - Yarn 1.22
-- PostgreSQL 13.2
+- MariaDB 10.3
 - Docker 20.10
 - Docker Compose 1.28
 - Visual Studio Code 1.54
@@ -35,26 +35,15 @@ GCP Cloud Run이 컨테이너 기반 환경이기 때문에 Docker는 컨테이�
 ### 환경 변수 설정
 
 ```
-POSTGRES_HOST=
-POSTGRES_DB=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
+COOKIE_SECRET=
 
-JWT_SECRET_KEY=
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-
-FACEBOOK_APP_ID=
-FACEBOOK_APP_SECRET=
-
-FRONTEND_URL=
-BACKEND_URL=
-
-PORT=4000
+MARIADB_HOST=
+MARIADB_PORT=
+MARIADB_USER=
+MARIADB_PASSWORD=
 ```
 
-루트 폴더에 `.env`, `.env.development` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
+루트 폴더에 `.env` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
 
 만약 로컬 데이터베이스를 사용하려면 `POSTGRES_HOST=localhost`로 설정하고 `localhost:5432` 주소에서 PostgreSQL 데이터베이스를 실행합니다.
 
@@ -64,16 +53,15 @@ PORT=4000
 > yarn dev
 ```
 
-TypeScript 파일을 그대로 사용해 Nodemon으로 서비스를 실행합니다.
+Nodemon으로 서비스를 실행합니다.
 
 ### 프로덕션 모드 (Local)
 
 ```shell
-> yarn build
 > yarn start
 ```
 
-TypeScript 파일을 JavaScript로 트랜스파일한 후 Node.js로 서비스를 실행합니다.
+Node.js로 서비스를 실행합니다.
 
 ### 프로덕션 모드 (Docker)
 
