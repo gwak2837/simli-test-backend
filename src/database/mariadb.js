@@ -10,7 +10,7 @@ const pool = createPool({
 
 export async function getUserList() {
   const conn = await pool.getConnection()
-
+  await conn.query('USE simli_test')
   const rows = await conn.query('SELECT * FROM user')
 
   if (conn) conn.end()
@@ -19,7 +19,7 @@ export async function getUserList() {
 
 export async function getUserByEmail(email) {
   const conn = await pool.getConnection()
-
+  await conn.query('USE simli_test')
   const rows = await conn.query(`SELECT * FROM user where email='${email}'`)
 
   if (conn) conn.end()
@@ -29,7 +29,7 @@ export async function getUserByEmail(email) {
 
 export async function registerUser(email, passwordHash, name) {
   const conn = await pool.getConnection()
-
+  conn.query('USE simli_test')
   const rows = await conn.query(
     `INSERT INTO user (email, password_hash, name) VALUES ('${email}','${passwordHash}','${name}') RETURNING id`
   )
