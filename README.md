@@ -45,7 +45,7 @@ MARIADB_PASSWORD=
 
 루트 폴더에 `.env` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
 
-만약 로컬 데이터베이스를 사용하려면 `POSTGRES_HOST=localhost`로 설정하고 `localhost:5432` 주소에서 PostgreSQL 데이터베이스를 실행합니다.
+만약 로컬 데이터베이스를 사용하려면 `MARIADB_HOST=localhost`로 설정하고 `localhost:5432` 주소에서 MariaDB를 실행합니다.
 
 ### 개발 모드 (Local)
 
@@ -88,9 +88,3 @@ GCP Cloud Run이 GitHub 저장소 변경 사항을 자동으로 감지하기 때
 [database/erd.html](database/erd.html)
 
 ## 프로젝트 구조
-
-## 의문점
-
-- 스케일링에 의해 백엔드 컨테이너 수가 늘어날 수록 pg에서 제공하는 client pooling의 의미가 퇴색될까?
-
-- menu 개수에 비례해서 sql 수가 증가하는 문제점. query chaining. optional field는 sql에서 select 하지 않기
