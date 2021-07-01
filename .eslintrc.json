@@ -12,17 +12,13 @@
     "plugin:promise/recommended",
     "standard",
 
-    "plugin:@typescript-eslint/recommended",
-
     // Rules related with Prettier MUST be at the last of the array
     "plugin:prettier/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
   "root": true,
   "rules": {
     "no-console": [
@@ -31,19 +27,12 @@
         "allow": ["warn", "error"]
       }
     ],
+    "no-unused-vars": "warn",
 
     "import/no-unresolved": "off", // temporary
 
     "node/no-missing-import": "off", // temporary
     "node/no-process-exit": "warn",
-    "node/no-unsupported-features/es-syntax": "off",
-
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ]
+    "node/no-unsupported-features/es-syntax": "off"
   }
 }
