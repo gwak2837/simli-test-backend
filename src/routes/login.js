@@ -11,8 +11,6 @@ router.post('/', async (req, res) => {
 
   const rows = await getUserByEmail(email)
 
-  console.log(rows)
-
   if (rows.length === 0) {
     res.send({ message: '로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.' })
     return
