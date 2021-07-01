@@ -29,7 +29,7 @@ export async function getUserByEmail(email) {
 
 export async function registerUser(email, passwordHash, name) {
   const conn = await pool.getConnection()
-  conn.query('USE simli_test')
+  await conn.query('USE simli_test')
   const rows = await conn.query(
     `INSERT INTO user (email, password_hash, name) VALUES ('${email}','${passwordHash}','${name}') RETURNING id`
   )
