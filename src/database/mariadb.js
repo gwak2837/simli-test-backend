@@ -32,7 +32,7 @@ export async function registerUser(email, passwordHash, name) {
   await conn.query('USE simli_test')
 
   await conn.query(
-    `INSERT INTO user (email, password_hash, name) VALUES ('${email}','${passwordHash}','${name}') RETURNING id`
+    `INSERT INTO user (email, password_hash, name) VALUES ('${email}','${passwordHash}','${name}')`
   )
 
   const rows = await conn.query(
