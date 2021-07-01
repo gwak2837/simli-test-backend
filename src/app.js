@@ -9,7 +9,7 @@ import cors from 'cors'
 config()
 
 import loginRouter from './routes/login.js'
-import signupRouter from './routes/register.js'
+import registerRouter from './routes/register.js'
 
 const app = express()
 app.set('port', process.env.PORT || 4000)
@@ -34,7 +34,7 @@ app.use(
 )
 
 app.use('/login', loginRouter)
-app.use('/signup', signupRouter)
+app.use('/register', registerRouter)
 
 app.use((req, res, next) => {
   res.status(404).send('Not Found')
