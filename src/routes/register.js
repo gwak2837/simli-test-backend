@@ -9,8 +9,6 @@ const router = Router()
 router.post('/', async (req, res) => {
   const { email, password, name, phoneNumber, birth, address } = req.body
 
-  console.log(req.body)
-
   const passwordHash = await hash(password, await genSalt())
 
   const rows = await registerUser(email, passwordHash, name)

@@ -7,8 +7,7 @@ const { compare } = bcrypt
 const router = Router()
 
 router.post('/', async (req, res) => {
-  const email = req.body.email
-  const password = req.body.password
+  const { email, password } = req.body
 
   const rows = await getUserByEmail(email)
 
