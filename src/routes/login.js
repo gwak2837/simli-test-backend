@@ -1,24 +1,28 @@
-import { getUser } from '../database/mariaDBConn.js' // "mariaDBConn.js" 파일을 불러옴.
-
+import bcrypt from 'bcryptjs'
 import { Router } from 'express'
-import path from 'path'
+import { getUserByEmail } from '../database/mariadb.js'
+import { generateJWT } from '../utils/jwt.js'
+
+const { compare } = bcrypt
 const router = Router()
 
-// POST 방식 요청이면  /loginProcess 라우터
 router.post('/', async (req, res) => {
-  const id = req.body.id // POST 방식 요청이면  req.body[".."] 로
-  const pw = req.body.pw // POST 방식 요청이면  req.body[".."] 로
+  const email = req.body.email
+  const password = req.body.password
 
-  const rows = await getUser(id)
-  console.log(rows[0], rows[0].user_pw)
+  const rows = await getUserByEmail(email)
 
-  if (pw === rows[0].user_pw) {
-    if (!req.session.loginuser) {
-      req.session.loginuser = rows[0].user_name
-    }
-    res.render('main', { userid: req.session.loginuser })
+  if (rows.length === 0) {
+    res.send('로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.')
   } else {
-    res.send('로그인 실패. 다시 로그인 하세요.')
+    const authenticationSuceed = await compare(password, rows[0].password_hash)
+
+    if (authenticationSuceed) {
+      const jwt = generateJWT({ userId: rows[0].id })
+      res.send(jwt)
+    } else {
+      res.send('로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.')
+    }
   }
 })
 

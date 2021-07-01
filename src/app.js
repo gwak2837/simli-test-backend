@@ -5,15 +5,17 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import { config } from 'dotenv'
 import { join } from 'path'
+import cors from 'cors'
 
 config()
 
 import loginRouter from './routes/login.js'
-import signupRouter from './routes/signup.js'
+import signupRouter from './routes/register.js'
 
 const app = express()
 app.set('port', process.env.PORT || 4000)
 
+app.use(cors())
 app.use(morgan('dev'))
 // app.use('/', static(join(__dirname, 'public')))
 app.use(json())
