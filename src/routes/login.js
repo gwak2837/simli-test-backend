@@ -13,14 +13,14 @@ router.post('/', async (req, res) => {
   const rows = await getUserByEmail(email)
 
   if (rows.length === 0) {
-    res.send('로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.')
+    res.send({ message: '로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.' })
     return
   }
 
   const authenticationSuceed = await compare(password, rows[0].password_hash)
 
   if (!authenticationSuceed) {
-    res.send('로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.')
+    res.send({ message: '로그인에 실패했어요. 이메일 또는 비밀번호를 확인해주세요.' })
     return
   }
 
