@@ -7,15 +7,22 @@ const { genSalt, hash } = bcrypt
 const router = Router()
 
 router.post('/', async (req, res) => {
-  const { email, password, name, phoneNumber, birth, address } = req.body
+  try {
+    const { password } = req.body
 
-  const passwordHash = await hash(password, await genSalt())
+    const passwordHash = await hash(password, await genSalt())
 
-  const rows = await registerUser(email, passwordHash, name)
+    const userInfo = { ...req.body, passwordHash }
 
-  const jwt = await generateJWT({ userId: rows[0].id })
+    const rows = await registerUser(userInfo)
 
-  res.send({ jwt })
+    const jwt = await generateJWT({ userId: rows[0].id })
+
+    res.send({ jwt })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ message: '서버 오류가 발생했어요' })
+  }
 })
 
 export default router
