@@ -18,9 +18,15 @@ const pool = createPool({
   connectionLimit: 5,
 })
 
-export async function getUserList() {
+async function connectToMariaDB() {
   const conn = await pool.getConnection()
   await conn.query('USE simli_test')
+  return conn
+}
+
+export async function getUserList() {
+  const conn = await connectToMariaDB()
+
   const rows = await conn.query(await users)
 
   if (conn) conn.end()
@@ -28,24 +34,21 @@ export async function getUserList() {
 }
 
 export async function getUserByEmail(email) {
-  const conn = await pool.getConnection()
-  await conn.query('USE simli_test')
+  const conn = await connectToMariaDB()
+
   const rows = await conn.query(await userByEmail, [email])
 
   if (conn) conn.end()
-
   return rows
 }
 
 export async function registerUser({ email, passwordHash, name, phoneNumber, birth, address }) {
-  const conn = await pool.getConnection()
-  await conn.query('USE simli_test')
+  const conn = await connectToMariaDB()
 
   await conn.query(await register, [email, passwordHash, name, phoneNumber, birth, address])
 
   const rows = await conn.query(await userByRegisterInput, [email, passwordHash, name])
 
   if (conn) conn.end()
-
   return rows
 }
