@@ -7,7 +7,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const register = importSQL(__dirname, 'sql/register.sql')
 const userByEmail = importSQL(__dirname, 'sql/userByEmail.sql')
+const userById = importSQL(__dirname, 'sql/userById.sql')
 const userByRegisterInput = importSQL(__dirname, 'sql/userByRegisterInput.sql')
+const userDetailById = importSQL(__dirname, 'sql/userDetailById.sql')
 const users = importSQL(__dirname, 'sql/users.sql')
 
 const pool = createPool({
@@ -37,6 +39,24 @@ export async function getUserByEmail(email) {
   const conn = await connectToMariaDB()
 
   const rows = await conn.query(await userByEmail, [email])
+
+  if (conn) conn.end()
+  return rows
+}
+
+export async function getUserById(id) {
+  const conn = await connectToMariaDB()
+
+  const rows = await conn.query(await userById, [id])
+
+  if (conn) conn.end()
+  return rows
+}
+
+export async function getUserDetailById(id) {
+  const conn = await connectToMariaDB()
+
+  const rows = await conn.query(await userDetailById, [id])
 
   if (conn) conn.end()
   return rows

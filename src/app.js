@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/first */
 import express, { json, urlencoded } from 'express'
 import morgan from 'morgan'
@@ -10,6 +11,7 @@ config()
 
 import loginRouter from './routes/login.js'
 import registerRouter from './routes/register.js'
+import meRouter from './routes/me.js'
 
 const app = express()
 app.set('port', process.env.PORT || 4000)
@@ -35,6 +37,7 @@ app.use(
 
 app.use('/login', loginRouter)
 app.use('/register', registerRouter)
+app.use('/me', meRouter)
 
 app.use((req, res, next) => {
   res.status(404).send('Not Found')

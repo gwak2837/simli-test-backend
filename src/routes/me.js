@@ -1,0 +1,27 @@
+import { Router } from 'express'
+import { getUserById } from '../database/mariadb.js'
+import { verifyJWT } from '../utils/jwt.js'
+
+const router = Router()
+
+router.post('/', async (req, res) => {
+  try {
+    const { jwt } = req.body
+
+    const userInfo = await verifyJWT(jwt).catch(() => {
+      return null
+    })
+
+    if (userInfo) {
+      const rows = await getUserById(userInfo.userId)
+      res.send(rows[0])
+    } else {
+      res.send(null)
+    }
+  } catch (error) {
+    console.error(error)
+    res.send(null)
+  }
+})
+
+export default router

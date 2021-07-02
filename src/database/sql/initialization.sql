@@ -6,10 +6,17 @@ USE simli_test;
 
 CREATE TABLE user (
   id INT(10) UNIQUE NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(50) UNIQUE NOT NULL,
-  password_hash VARCHAR(500) NOT NULL,
-  name VARCHAR(50) NOT NULL,
-  phone_number VARCHAR(50),
-  birth VARCHAR(50),
-  address VARCHAR(50)
+  email VARCHAR(64) UNIQUE NOT NULL,
+  password_hash VARCHAR(512) NOT NULL,
+  name VARCHAR(32) NOT NULL,
+  phone_number VARCHAR(32),
+  birth VARCHAR(32),
+  address VARCHAR(64)
+);
+
+CREATE TABLE test_answer (
+  id INT UNIQUE NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  result_id INT NOT NULL,
+  user_id int NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE CASCADE
 );
