@@ -1,4 +1,14 @@
 import { createPool } from 'mariadb'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { importSQL } from '../utils/common.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+const register = importSQL(__dirname, 'sql/register.sql')
+const userByEmail = importSQL(__dirname, 'sql/userByEmail.sql')
+const userByRegisterInput = importSQL(__dirname, 'sql/userByRegisterInput.sql')
+const users = importSQL(__dirname, 'sql/users.sql')
 
 const pool = createPool({
   host: process.env.MARIADB_HOST,
@@ -11,7 +21,7 @@ const pool = createPool({
 export async function getUserList() {
   const conn = await pool.getConnection()
   await conn.query('USE simli_test')
-  const rows = await conn.query('SELECT * FROM user')
+  const rows = await conn.query(await users)
 
   if (conn) conn.end()
   return rows
@@ -20,24 +30,20 @@ export async function getUserList() {
 export async function getUserByEmail(email) {
   const conn = await pool.getConnection()
   await conn.query('USE simli_test')
-  const rows = await conn.query(`SELECT id, password_hash FROM user WHERE email='${email}'`)
+  const rows = await conn.query(await userByEmail, [email])
 
   if (conn) conn.end()
 
   return rows
 }
 
-export async function registerUser(email, passwordHash, name) {
+export async function registerUser({ email, passwordHash, name, phoneNumber, birth, address }) {
   const conn = await pool.getConnection()
   await conn.query('USE simli_test')
 
-  await conn.query(
-    `INSERT INTO user (email, password_hash, name) VALUES ('${email}','${passwordHash}','${name}')`
-  )
+  await conn.query(await register, [email, passwordHash, name, phoneNumber, birth, address])
 
-  const rows = await conn.query(
-    `SELECT id FROM user WHERE email='${email}' and password_hash='${passwordHash}' and name='${name}'`
-  )
+  const rows = await conn.query(await userByRegisterInput, [email, passwordHash, name])
 
   if (conn) conn.end()
 
