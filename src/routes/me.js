@@ -16,11 +16,11 @@ router.post('/', async (req, res) => {
       const rows = await getUserById(userInfo.userId)
       res.send(rows[0])
     } else {
-      res.send(null)
+      res.send({ id: null })
     }
   } catch (error) {
     console.error(error)
-    res.send(null)
+    res.send({ id: null })
   }
 })
 
